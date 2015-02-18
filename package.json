@@ -1,0 +1,24 @@
+{
+  "name": "jsPsychBackendDemo",
+  "version": "1.0.0",
+  "description": "A simple back-end demo for deploying jsPsych experiments using node.js on Heroku",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tuuleh/jsPsychBackendDemo.git"
+  },
+  "author": "Tuuli Pollanen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tuuleh/jsPsychBackendDemo/issues"
+  },
+  "homepage": "https://github.com/Tuuleh/jsPsychBackendDemo",
+  "dependencies": {
+    "ejs": "^2.2.4",
+    "express": "^4.11.2",
+    "nodemon": "^1.3.7"
+  }
+}
