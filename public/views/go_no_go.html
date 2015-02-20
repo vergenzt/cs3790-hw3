@@ -7,7 +7,7 @@
     <script src="jsPsych/plugins/jspsych-text.js"></script>
     <script src="jsPsych/plugins/jspsych-single-stim.js"></script>
     <link href="jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
-    <link href="css/go_no_go.css" rel="stylesheet" type="text/css"></link>
+    <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
   </head>
   <body>
     <div class = "parent">
@@ -21,16 +21,16 @@
     /* define welcome message block */
     var welcome_block = {
       type: "text",
-      text: "Welcome to the experiment. Press any key to begin."
+      text: "This section will contain the go/no-go task constructed in a tutorial at the <a href = 'http://docs.jspsych.org/tutorials/go-nogo-task/' target = 'new'>jsPsych website</a>. You'll have to complete that tutorial and create the experiment in order to get started. </p><p>You'll notice that I have used styling to center the stimuli both horizontally and vertically. You can look at how this is done by styling nested div elements in my go_no_go.html and go_no_go.css files."
     };
 
     /* define instructions block */
     var instructions_block = {
       type: "text",
       text: "<p>In this experiment, a circle will appear in the center " +
-          "of the screen.</p><p>If the circle is <strong>blue</strong>, " +
-          "press the letter F on the keyboard as fast as you can.</p>" +
-          "<p>If the circle is <strong>orange</strong>, do not press " +
+          "of the screen.<br>If the circle is <strong>blue</strong>, " +
+          "press the letter F on the keyboard as fast as you can." +
+          "<br>If the circle is <strong>orange</strong>, do not press " +
           "any key.</p>" +
           "<div class='left center-content'><img src='img/blue.png'></img>" +
           "<p class='small'><strong>Press the F key</strong></p></div>" +
@@ -53,7 +53,7 @@
       }
     ];
 
-    var all_trials = jsPsych.randomization.repeat(test_stimuli, 10, true);
+    var all_trials = jsPsych.randomization.repeat(test_stimuli, 2, true);
 
     var post_trial_gap = function() {
       return Math.floor( Math.random() * 1500 ) + 750;
@@ -105,8 +105,23 @@
     jsPsych.init({
       display_element: $('#jspsych_target'),
       experiment_structure: experiment,
+      //instead of displaying data in the on_finish callback, we post it to our server.
       on_finish: function() {
-        jsPsych.data.displayData();
+        // jsPsych.data.displayData();
+        data_object = jsPsych.data.getData();
+        $.ajax({
+          type: "POST",
+          url: "/experiment-data",
+          data: JSON.stringify(data_object),
+          contentType: "application/json"
+        })
+        .done(function() {
+          window.location.href = "finish";
+        })
+        .fail(function() {
+          alert("There was an error with your submission! Please contact the researcher for more information.")
+          window.location.href = "/";
+        })
       }
     });
   </script>

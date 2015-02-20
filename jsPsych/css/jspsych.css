@@ -1,23 +1,15 @@
-/* 
- * CSS for jsPsych experiments.
- *
- * This stylesheet provides minimal styling to make jsPsych 
- * experiments look polished without any additional styles.
- *
- */
-
-/*
- *
- * fonts and type
- *
- */
- 
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 
 html {
  font-family: 'Open Sans', 'Arial', sans-serif;
  font-size: 18px;
  line-height: 1.6em;
+}
+
+h1 {
+    line-height: 1.8em;
+    text-align: center;
+    font-size: 30px;
 }
 
 body {
