@@ -55,7 +55,8 @@ var Entry = mongoose.model('Entry', emptySchema);
 // ------- STARTING THE SERVICE
 
 //Creating our web server on port 3000
-var server = app.listen(3000, function(){
+//replace 3000 with process.env.PORT
+var server = app.listen(process.env.PORT || 3000, function(){
     console.log("Listening on port %d", server.address().port);
 });
 
