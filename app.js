@@ -6,7 +6,7 @@ var app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.set('views', 'public/views');
+app.set('views', 'views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
