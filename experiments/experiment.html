@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="jquery/jquery-1.11.3.js"></script>
+
+    <!-- jsPsych files -->
+    <script src="jsPsych/jspsych.js"></script>
+    <script src="jsPsych/plugins/jspsych-text.js"></script>
+    <script src="jsPsych/plugins/jspsych-single-stim.js"></script>
+    <script src="marked/marked.js"></script>
+
+    <!-- styles -->
+    <link href="jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="child">
+        <div id="jspsych_target"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    jsPsych.init({
+      display_element: $('#jspsych_target'),
+
+      experiment_structure: [
+
+        // page 1: instructions
+        {
+          type: "text",
+          text: marked(
+            "# Instructions\n" +
+            "This is a test!\n"
+          )
+        },
+
+      ],
+
+      on_finish: function() {
+        $.ajax({
+          type: "POST",
+          url: "/experiment-data",
+          data: JSON.stringify(jsPsych.data.getData()),
+          contentType: "application/json"
+        })
+        .fail(function() {
+          alert("A problem occurred while writing to the database. Please contact the researcher for more information.");
+        });
+      }
+    });
+  </script>
+</html>
