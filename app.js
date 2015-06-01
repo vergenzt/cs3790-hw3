@@ -8,6 +8,10 @@ app.use(express.static('public'));
 app.use(express.static('experiments'));
 app.use(bodyParser.json());
 
+app.get('/', function(req, res) {
+  res.redirect('/experiment.html');
+});
+
 var db = require('./db');
 app.post('/experiment-data', function(request, response) {
   db.Entry.create({ data: request.body });  
