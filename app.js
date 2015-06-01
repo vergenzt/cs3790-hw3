@@ -1,7 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
 
 var app = express();
+app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.static('experiments'));
 app.use(bodyParser.json());
