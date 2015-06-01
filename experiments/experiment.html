@@ -24,27 +24,34 @@
   </body>
   <script>
     jsPsych.init({
-      display_element: $('#jspsych_target'),
-
       experiment_structure: [
 
-        // page 1: instructions
+        // instructions
         {
-          type: "text",
-          text: marked(
-            "# Instructions\n" +
-            "This is a test!\n"
-          )
+          type: "instructions",
+          pages: [
+            marked(
+              "# Instructions\n" +
+              "This is a test!\n"
+            ),
+            marked(
+              "This is a second page of instructions."
+            )
+          ]
         },
 
       ],
 
+      display_element: $('#jspsych_target'),
       on_finish: function() {
         $.ajax({
           type: "POST",
           url: "/experiment-data",
           data: JSON.stringify(jsPsych.data.getData()),
           contentType: "application/json"
+        })
+        .done(function() {
+          window.location.href = "thanks.html";
         })
         .fail(function() {
           alert("A problem occurred while writing to the database. Please contact the researcher for more information.");
