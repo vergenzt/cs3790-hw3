@@ -3,9 +3,9 @@
   <head>
     <title>My experiment</title>
     <script src="jquery/jquery-1.11.3.js"></script>
-
-    <!-- jsPsych files -->
     <script src="jspsych/jspsych.js"></script>
+
+    <!-- jsPsych plugin files -->
     <script src="jspsych/plugins/jspsych-text.js"></script>
     <script src="jspsych/plugins/jspsych-instructions.js"></script>
     <script src="jspsych/plugins/jspsych-single-stim.js"></script>
@@ -16,11 +16,7 @@
     <link href="css/experiment.css" rel="stylesheet" type="text/css"></link>
   </head>
   <body>
-    <div class="parent">
-      <div class="child">
-        <div id="jspsych_target"></div>
-      </div>
-    </div>
+    <div id="jspsych_target"></div>
   </body>
   <script>
     jsPsych.init({
