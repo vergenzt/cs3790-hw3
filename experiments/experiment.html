@@ -6,8 +6,8 @@
     <script src="jspsych/jspsych.js"></script>
 
     <!-- jsPsych plugin files -->
-    <script src="jspsych/plugins/jspsych-text.js"></script>
     <script src="jspsych/plugins/jspsych-instructions.js"></script>
+    <script src="jspsych/plugins/jspsych-text.js"></script>
     <script src="jspsych/plugins/jspsych-single-stim.js"></script>
     <script src="marked/marked.js"></script>
 
@@ -27,15 +27,14 @@
         // instructions
         {
           type: "instructions",
-          pages: [
-            marked(
-              "# Instructions\n" +
-              "This is a test!\n"
-            ),
-            marked(
-              "This is a second page of instructions."
-            )
-          ]
+          allow_keys: false,
+          show_clickable_nav: true,
+
+          pages: [marked('\
+# Instructions \n\
+\n\
+(Instructions go here.) \n\
+          ')]
         },
 
       ],
