@@ -1,5 +1,5 @@
 # Instructions
-
+<div id="directions">
 ###General Info
 First of all, thank you for volunteering in our study. To preview why you are here, let me explain our research. We are interested in how we, as humans, compare information in different modalities which will be tested as described in the next section. 
 
@@ -14,4 +14,5 @@ There are two steps to each trial you will see:
 ###Your Rights
 
 The results collected are for academic purposes only.  No identifying information will be collected and there is no penalty for exiting the study at any time.
+</div>
  
