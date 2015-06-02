@@ -1,12 +1,19 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var markdown = require('markdown-serve');
 
 var app = express();
 app.use(morgan('dev'));
 app.use(express.static('public'));
 app.use(express.static('lib'));
 app.use(express.static('experiments'));
+app.use('/md', markdown.middleware({
+  rootDirectory: 'markdown/',
+  handler: function(mdFile, req, res, next) {
+    res.send(mdFile.parseContent());
+  }
+}));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {

@@ -8,8 +8,8 @@
     <!-- jsPsych plugin files -->
     <script src="jspsych/plugins/jspsych-instructions.js"></script>
     <script src="jspsych/plugins/jspsych-text.js"></script>
+    <script src="jspsych/plugins/jspsych-html.js"></script>
     <script src="jspsych/plugins/jspsych-single-stim.js"></script>
-    <script src="marked/marked.js"></script>
 
     <!-- styles -->
     <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
@@ -29,16 +29,17 @@
           type: "instructions",
           allow_keys: false,
           show_clickable_nav: true,
-
-          pages: [marked('\
-# Instructions \n\
-\n\
-(Instructions go here.) \n\
-          ')]
+          pages: [(function() {
+            var html;
+            $.ajax("/md/exp1-instructions", {async: false})
+             .success(function(data) { html = data; });
+            return html;
+          })()],
         },
 
       ],
 
+      show_progress_bar: true,
       display_element: $('#jspsych_target'),
       on_finish: function() {
         $.ajax({
