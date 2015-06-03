@@ -61,7 +61,8 @@
         answers.push(obj.consistency ? "same" : "different");
       });
 
-    jsPsych.data.addProperties({ subject_id: uuid.v4() });
+    var subject_id = uuid.v4();
+    jsPsych.data.addProperties({ subject_id: subject_id });
 
     jsPsych.init({
       experiment_structure: [
@@ -115,7 +116,10 @@
         $.ajax({
           type: "POST",
           url: "/experiment-data",
-          data: JSON.stringify(jsPsych.data.getData()),
+          data: JSON.stringify({
+            subject_id: subject_id,
+            data_csv: jsPsych.data.dataAsCSV()
+          }),
           contentType: "application/json"
         })
         .done(function() {
