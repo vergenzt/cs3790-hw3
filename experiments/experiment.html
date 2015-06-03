@@ -9,6 +9,7 @@
     <!-- jsPsych plugin files -->
     <script src="jspsych/plugins/jspsych-survey-text.js"></script>
     <script src="jspsych/plugins/jspsych-instructions.js"></script>
+    <script src="jspsych/plugins/jspsych-text.js"></script>
     <script src="jspsych/plugins/jspsych-same-different.js"></script>
 
     <!-- styles -->
@@ -27,23 +28,59 @@
     }
 
     var SHAPES = ["circle", "square", "plus", "star"];
-    var REPETITIONS = 3;
 
-    var stimuli = [];
-    var answers = [];
+    function getRealConfig(repetitions) {
+      repetitions = repetitions || 1;
 
-    var rand = jsPsych.randomization;
-    rand.
-      factorial({
-        relation: ["above", "below"],
-        sign: ["", "not "],
-        consistency: [true, false],
-      }, REPETITIONS).
-      map(function(obj) {
-        obj.shapes = rand.sample(["circle", "square", "plus"], 2, false);
-        return obj;
-      }).
-      forEach(function(obj) {
+      var rand = jsPsych.randomization;
+      var trials = rand.
+        factorial({
+          relation: ["above", "below"],
+          sign: ["", "not "],
+          consistency: [true, false],
+        }, repetitions).
+        map(function(obj) {
+          var SHAPES = ["circle", "square", "plus", "star"];
+          obj.shapes = rand.sample(SHAPES, 2, false);
+          return obj;
+        });
+      return {
+        environment: "real",
+        trials: trials
+      };
+    }
+
+    function getDemoConfig() {
+      return {
+        environment: "demo",
+        trials: [{
+          relation: "above",
+          sign: "",
+          consistency: true,
+          shapes: ["square", "plus"]
+        }, {
+          relation: "below",
+          sign: "not ",
+          consistency: true,
+          shapes: ["square", "circle"]
+        }, {
+          relation: "below",
+          sign: "",
+          consistency: false,
+          shapes: ["star", "square"]
+        }, {
+          relation: "above",
+          sign: "not ",
+          consistency: false,
+          shapes: ["plus", "star"]
+        }]
+      };
+    }
+
+    // converts an abstract configuration into a jsPsych configuration
+    function convertConfig(config) {
+      var stimuli = [], answers = [];
+      config.trials.forEach(function(obj) {
         var shouldSwap =
           (obj.relation === "above" && obj.sign === "not ") ||
           (obj.relation === "below" && obj.sign === "");
@@ -60,6 +97,20 @@
         ]);
         answers.push(obj.consistency ? "same" : "different");
       });
+      return {
+        type: "same-different",
+        is_html: true,
+        stimuli: stimuli,
+        answer: answers,
+        same_key: "C",
+        different_key: "N",
+        timing_first_stim: -1,
+        timing_gap: 0,
+        timing_second_stim: -1,
+        data: {environment: config.environment},
+        prompt: "<br><br><br><br>Press C for consistent or N for not consistent."
+      };
+    }
 
     var subject_id = uuid.v4();
     jsPsych.data.addProperties({ subject_id: subject_id });
@@ -92,21 +143,17 @@
         },
 
         // demo
-        {
-          type: "same-different",
-          is_html: true,
-          stimuli: stimuli,
-          answer: answers,
-          same_key: "C",
-          different_key: "N",
-          timing_first_stim: -1,
-          timing_second_stim: -1,
-          prompt: "<br><br><br><br>Press C for consistent or N for not consistent."
-        }
+        convertConfig(getDemoConfig()),
 
         // instructions that they're about to begin
+        {
+          type: "text",
+          text: "<h1>Ready to begin?</h1><br>" +
+            "Press any key to begin the experiment."
+        },
 
         // actual trials
+        convertConfig(getRealConfig()),
 
       ],
 
