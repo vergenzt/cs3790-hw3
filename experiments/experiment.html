@@ -6,10 +6,9 @@
     <script src="jspsych/jspsych.js"></script>
 
     <!-- jsPsych plugin files -->
+    <script src="jspsych/plugins/jspsych-survey-text.js"></script>
     <script src="jspsych/plugins/jspsych-instructions.js"></script>
-    <script src="jspsych/plugins/jspsych-text.js"></script>
-    <script src="jspsych/plugins/jspsych-html.js"></script>
-    <script src="jspsych/plugins/jspsych-single-stim.js"></script>
+    <script src="jspsych/plugins/jspsych-same-different.js"></script>
 
     <!-- styles -->
     <link href="jspsych/css/jspsych.css" rel="stylesheet" type="text/css"></link>
@@ -19,23 +18,89 @@
     <div id="jspsych_target"></div>
   </body>
   <script>
+    function getMdContents(path) {
+      var html;
+      $.ajax(path, {async: false})
+       .success(function(data) { html = data; });
+      return html;
+    }
+
+    var SHAPES = ["circle", "square", "plus"];
+    var REPETITIONS = 3;
+
+    var stimuli = [];
+    var answers = [];
+
+    var rand = jsPsych.randomization;
+    rand.
+      factorial({
+        relation: ["above", "below"],
+        sign: ["", "not "],
+        consistency: [true, false],
+      }, REPETITIONS).
+      map(function(obj) {
+        obj.shapes = rand.sample(["circle", "square", "plus"], 2, false);
+        return obj;
+      }).
+      forEach(function(obj) {
+        var shouldSwap =
+          (obj.relation === "above" && obj.sign === "not ") ||
+          (obj.relation === "below" && obj.sign === "");
+        if (!obj.consistency) {
+          shouldSwap = !shouldSwap;
+        }
+        var i = shouldSwap ? 1 : 0;
+        var j = shouldSwap ? 0 : 1;
+        stimuli.push([
+          "The " + obj.shapes[0] + " is " + obj.sign + obj.relation +
+          " the " + obj.shapes[1] + ".",
+          "<img src=\"img/" + obj.shapes[i] + ".png\"></img><br><br><br>" +
+          "<img src=\"img/" + obj.shapes[j] + ".png\"></img>"
+        ]);
+        answers.push(obj.consistency ? "same" : "different");
+      });
+
     jsPsych.init({
       experiment_structure: [
         // Define the main experiment structure here.
         // See http://docs.jspsych.org/plugins/overview/.
+
+        // survey
+        {
+          type: "survey-text",
+          preamble: ["<h1>Subject Demographics</h1>"],
+          questions: [[
+            "What is your age? (numeric)",
+            "What is your gender? (\"Male\"/\"Female\")",
+          ]],
+        },
 
         // instructions
         {
           type: "instructions",
           allow_keys: false,
           show_clickable_nav: true,
-          pages: [(function() {
-            var html;
-            $.ajax("/md/exp1-instructions", {async: false})
-             .success(function(data) { html = data; });
-            return html;
-          })()],
+          pages: [
+            getMdContents("/md/exp1-instructions"),
+          ],
         },
+
+        // demo
+        {
+          type: "same-different",
+          is_html: true,
+          stimuli: stimuli,
+          answer: answers,
+          same_key: "C",
+          different_key: "N",
+          timing_first_stim: -1,
+          timing_second_stim: -1,
+          prompt: "<br><br><br><br>Press C for consistent or N for not consistent."
+        }
+
+        // instructions that they're about to begin
+
+        // actual trials
 
       ],
 
