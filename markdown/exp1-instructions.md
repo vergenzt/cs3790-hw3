@@ -9,7 +9,7 @@ There are two steps to each trial you will see:
 1. First you will be presented with a simple statement describing a relationship between two shapes. Take as much time as you need to read, understand, and memorize the statement, then press any key to continue.
   * E.g. **The circle is above the square.**
 2. The statement will go away, and will be replaced by an image with two shapes. Your job is to determine as quickly and accurately as possible whether the image is consistent with the statement you just saw (i.e. whether the sentence accurately describes the image). As soon as you have decided, press '***C***' to indicate it is ***consistent***, or press '***N***' to indicate it is ***not consistent***.
-  * E.g. <img src="img/square.png"></img><br><br><img src="img/circle.png"></img>
+  * E.g. <br><img src="img/square.png"></img><br><br><img src="img/circle.png"></img>
   * You would press '***N***' because the statement above does *not* accurately describe the image.
 
 ## Details
