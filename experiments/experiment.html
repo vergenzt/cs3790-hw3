@@ -60,14 +60,14 @@
           shapes: ["square", "plus"]
         }, {
           relation: "below",
-          sign: "not ",
-          consistency: true,
-          shapes: ["square", "circle"]
-        }, {
-          relation: "below",
           sign: "",
           consistency: false,
           shapes: ["star", "square"]
+        }, {
+          relation: "below",
+          sign: "not ",
+          consistency: true,
+          shapes: ["square", "circle"]
         }, {
           relation: "above",
           sign: "not ",
@@ -141,6 +141,17 @@
           ],
         },
 
+        // demo preparation
+        {
+          type: "text",
+          text: "<h1>Demo</h1><br>" +
+            "<p>We will now show you four example trials to give you a feel " +
+            "for what the experiment will be like.</p>" +
+            "<p>Remember, press <i><b>C</b></i> for <i><b>consistent</b></i> or " +
+            "<i><b>N</b></i> for <i><b>not consistent</b></i>.</p>" +
+            "<p>Press any key to begin the demo.</p>"
+        },
+
         // demo
         convertConfig(getDemoConfig()),
 
@@ -148,7 +159,11 @@
         {
           type: "text",
           text: "<h1>Ready to begin?</h1><br>" +
-            "Press any key to begin the experiment."
+            "<p>Now that you've gotten a feel for how this works, we will " +
+            "commence the actual experiment. When you are finished, please " +
+            "do not close the tab until you see the \"Thank you for " +
+            "participating\" page to ensure the data has been saved.</p>" +
+            "<p>Press any key to begin.</p>"
         },
 
         // actual trials
