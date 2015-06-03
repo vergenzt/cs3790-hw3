@@ -16,7 +16,7 @@ There are two steps to each trial you will see:
 
 * There will be **four practice trials** before you begin the experiment.
 * The experiment itself will consist of **16 real trials**.
-* If you are interrupted during the experiment and are unable to finish, feel free to restart the experiment by visiting the page again. Data is not saved to the server until the experiment is complete and the "Thank you for participating" page is displayed.
+* If you are interrupted during the experiment and are unable to finish, feel free to restart by visiting the page again. Data is not saved to the server until the experiment is complete and the "Thank you for participating" page is displayed.
 
 ## Your Rights
 
