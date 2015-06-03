@@ -17,17 +17,6 @@ There are two steps to each trial you will see:
 * The experiment itself will consist of **16 real trials**.
 * If you are interrupted during the experiment and are unable to finish, feel free to restart the experiment by visiting the page again. Data is not saved to the server until the experiment is complete and the "Thank you for participating" page is displayed.
 
-## Examples
-#### Consistent
- 1. *The circle is above the square.*
- 2. *[An image of a circle with a square below it.]*
- 3. Press '***C***' because the statement accurately describes the image.
-
-#### Not Consistent
- 1. *The star is below the square.*
- 2. *[An image of a star with a square below it.]*
- 3. Press '***N***' because the statement does *not* accurately describe the image.
-
 ## Your Rights
 
 The results collected are for academic purposes only.  No identifying information will be collected and there is no penalty for exiting the study at any time.
