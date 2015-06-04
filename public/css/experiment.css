@@ -10,6 +10,15 @@ body {
   text-align: center;
 }
 
+.instruction-prompt {
+  bottom: 50px;
+  font-size: 0.9em;
+  left: 50%;
+  margin: 0 0 0 -37.5%;
+  position: fixed;
+  width: 75%;
+}
+
 .parent {
   position:absolute;
   top:0;

@@ -5,6 +5,7 @@
     <script src="jquery/jquery-1.11.3.js"></script>
     <script src="jspsych/jspsych.js"></script>
     <script src="node-uuid/uuid.js"></script>
+    <script src="marked/marked.js"></script>
 
     <!-- jsPsych plugin files -->
     <script src="jspsych/plugins/jspsych-survey-text.js"></script>
@@ -108,6 +109,13 @@
         timing_gap: 0,
         timing_second_stim: -1,
         data: {environment: config.environment},
+        prompt: "<div class=\"instruction-prompt\">" +
+          marked(
+            "Press any key to proceed to step 2, then<br>" +
+            "press '***C***' for ***consistent***, or '***N***' for " +
+            "***not consistent***."
+          ) +
+          "</div>"
       };
     }
 
